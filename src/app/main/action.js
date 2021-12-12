@@ -25,10 +25,11 @@ function startTimer(duration, scope) {
 // };
 var app = angular.module("main", []);
 app.controller('mainController', function($scope, $interval) {
-    var fiveMinutes = 60 * 2;
-    var timer = fiveMinutes,
+    $scope.countdown = "00:00"
+    var duration = 60 * 2;
+    var timer = duration,
         minutes, seconds;
-    $interval(function() {
+    var cd = $interval(function() {
         minutes = parseInt(timer / 60, 10);
         seconds = parseInt(timer % 60, 10);
 
@@ -40,6 +41,7 @@ app.controller('mainController', function($scope, $interval) {
 
         if (--timer < 0) {
             timer = duration;
+            $interval.cancel(cd)
         }
     }, 1000);
     // $scope.countdown = "dddd"
